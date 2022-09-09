@@ -1,6 +1,9 @@
+package Day1;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -16,6 +19,13 @@ public class Employee {
     private LocalDate birthday;
     @Column
     private String email;
+
+    @OneToOne(fetch = FetchType.EAGER) // buduje relacje OneToOne
+    @JoinColumn(name = "phone_id")    // dodanie klucza obcego o nazwie phone_id w glownej kalumnie
+    private Phone phone;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
+    private List<Task> task;
 
 
     public Employee(String firstName, String familyName, LocalDate birthday, String email) {
@@ -66,5 +76,33 @@ public class Employee {
     }
 
     public Employee() {
+    }
+
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", familyName='" + familyName + '\'' +
+                ", birthday=" + birthday +
+                ", email='" + email + '\'' +
+            //    ", phone=" + phone +
+                '}';
+    }
+
+    public List<Task> getTask() {
+        return task;
+    }
+
+    public void setTask(List<Task> task) {
+        this.task = task;
     }
 }
