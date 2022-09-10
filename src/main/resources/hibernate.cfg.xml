@@ -20,6 +20,7 @@
         <mapping class="Day1.Employee"/>
         <mapping class="Day1.Phone"/>
         <mapping class="Day1.Task"/>
+        <mapping class="Day1.Project"/>
 
     </session-factory>
 </hibernate-configuration>

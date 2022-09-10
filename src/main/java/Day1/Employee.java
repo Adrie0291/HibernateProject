@@ -2,8 +2,7 @@ package Day1;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Employee {
@@ -27,6 +26,21 @@ public class Employee {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
     private List<Task> task;
 
+    @ManyToMany
+    @JoinTable(
+            name = "Employee_Project",
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "project_id")}
+    )
+    private List<Project> projects = new ArrayList<>();
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
 
     public Employee(String firstName, String familyName, LocalDate birthday, String email) {
         this.firstName = firstName;
@@ -94,7 +108,9 @@ public class Employee {
                 ", familyName='" + familyName + '\'' +
                 ", birthday=" + birthday +
                 ", email='" + email + '\'' +
-            //    ", phone=" + phone +
+                ", phone=" + phone +
+                ", task=" + task +
+      //          ", projects=" + projects +
                 '}';
     }
 

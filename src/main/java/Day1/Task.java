@@ -1,6 +1,7 @@
 package Day1;
 
 import javax.persistence.*;
+
 @Entity
 public class Task {
     @Id
@@ -11,19 +12,25 @@ public class Task {
     private String title;
     @Column
     private String description;
-    @Column
-    private String type;
+    // @Column
+    // private String type;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
+    @Column(name = "task_type")
+    @Enumerated(EnumType.STRING)
+    private TaskType taskType;
+
+
     public Task() {
     }
 
-    public Task(String title, String description, String type) {
+    public Task(String title, String description, TaskType taskType) {
         this.title = title;
         this.description = description;
-        this.type = type;
+        this.taskType = taskType;
     }
 
     public int getId() {
@@ -50,12 +57,13 @@ public class Task {
         this.description = description;
     }
 
-    public String getType() {
-        return type;
+
+    public TaskType getTaskType() {
+        return taskType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
     }
 
     public Employee getEmployee() {
@@ -69,9 +77,10 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", type='" + type + '\'' +
+                ", taskType=" + taskType +
                 '}';
     }
 }
