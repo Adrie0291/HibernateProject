@@ -1,11 +1,8 @@
-package Day1;
+package Day2;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
 
 @Entity
 public class Project {
@@ -17,51 +14,35 @@ public class Project {
     @Column(name = "project_name")
     private String projectName;
 
-  //  @ManyToMany
-  //  @JoinTable(name = "Project_Employee",
-  //          joinColumns = {
-  //                  @JoinColumn(name = "project_id")},
-   //         inverseJoinColumns = {
-   //                 @JoinColumn(name = "employee_id")
-   //         })
-   // private List<Employee> employees;
+    @ManyToMany(mappedBy = "projects")
+    private List<Employee> employees = new ArrayList<>();
 
     public Project() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public Project(String projectName) {
         this.projectName = projectName;
-
     }
-
- //   public List<Employee> getEmployees() {
- ////       return employees;
-  //  }
-
-  //  public void setEmployees(List<Employee> employees) {
- //       this.employees = employees;
- //   }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getProjectName() {
-        return projectName;
     }
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
     }
 
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+
+
+    }
+
     @Override
     public String toString() {
         return "Project{" +
                 "projectName='" + projectName + '\'' +
+                ", employees=" + employees +
                 '}';
     }
 }
